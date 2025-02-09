@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Planning - Residencial Los Robles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos CSS */
+        :root {
+            --color-primary: #2c3e50;
+            --color-secondary: #3498db;
+            --color-success: #27ae60;
+            --color-warning: #f1c40f;
+            --color-danger: #e74c3c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: #f5f6fa;
+            color: var(--color-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .planning-board {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .user-stories {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .story-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .task-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .board-column {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .column-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .task-list {
+            min-height: 400px;
+        }
+
+        .task-card {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: move;
+            transition: transform 0.2s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .priority {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .priority-high { background: #ffebe6; color: #d93c20; }
+        .priority-medium { background: #fff4e6; color: #e67e22; }
+        .priority-low { background: #e6f9f0; color: #27ae60; }
+
+        @media (max-width: 768px) {
+            .planning-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .task-board {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-tasks"></i> Sprint Planning</h1>
+            <p>Residencial Los Robles - Equipo de Desarrollo Web</p>
+        </header>
+
+        <div class="planning-board">
+            <!-- Sección de User Stories -->
+            <section class="user-stories">
+                <h2><i class="fas fa-plus-circle"></i> Nueva User Story</h2>
+                <form class="story-form" id="storyForm">
+                    <div class="form-group">
+                        <label for="storyTitle">Título:</label>
+                        <input type="text" class="form-control" id="storyTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyDesc">Descripción:</label>
+                        <textarea class="form-control" id="storyDesc" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyPoints">Puntos de Historia:</label>
+                        <select class="form-control" id="storyPoints" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="8">8</option>
+                            <option value="13">13</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyAssignee">Asignado a:</label>
+                        <select class="form-control" id="storyAssignee" required>
+                            <option value="dev1">Desarrollador 1</option>
+                            <option value="dev2">Desarrollador 2</option>
+                            <option value="qa">QA Tester</option>
+                            <option value="pm">Project Manager</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyPriority">Prioridad:</label>
+                        <select class="form-control" id="storyPriority" required>
+                            <option value="high">Alta</option>
+                            <option value="medium">Media</option>
+                            <option value="low">Baja</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Agregar Historia
+                    </button>
+                </form>
+            </section>
+
+            <!-- Tablero de Tareas -->
+            <section class="task-board">
+                <div class="board-column">
+                    <div class="column-header">
+                        <h3><i class="fas fa-clipboard-list"></i> Por Hacer</h3>
+                    </div>
+                    <div class="task-list" id="todoColumn">
+                        <!-- Tareas se agregarán aquí dinámicamente -->
+                    </div>
+                </div>
+                
+                <div class="board-column">
+                    <div class="column-header">
+                        <h3><i class="fas fa-spinner"></i> En Progreso</h3>
+                    </div>
+                    <div class="task-list" id="progressColumn">
+                        <!-- Tareas se agregarán aquí dinámicamente -->
+                    </div>
+                </div>
+                
+                <div class="board-column">
+                    <div class="column-header">
+                        <h3><i class="fas fa-check-circle"></i> Completado</h3>
+                    </div>
+                    <div class="task-list" id="doneColumn">
+                        <!-- Tareas se agregarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</body>
+</html>

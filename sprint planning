@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sprint Planning - Residencial Los Robles</title>
+    <title>Tablero SCRUM - Residencial Los Robles</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Estilos CSS */
         :root {
-            --color-primary: #2c3e50;
-            --color-secondary: #3498db;
-            --color-success: #27ae60;
-            --color-warning: #f1c40f;
-            --color-danger: #e74c3c;
+            --color-primary: #0079BF;
+            --color-secondary: #5BA4CF;
+            --color-success: #61BD4F;
+            --color-warning: #F2D600;
+            --color-danger: #EB5A46;
+            --color-background: #F4F5F7;
         }
 
         * {
@@ -23,243 +23,360 @@
 
         body {
             font-family: 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            background: #f5f6fa;
-            color: var(--color-primary);
+            background: var(--color-background);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
         }
 
-        .header {
-            text-align: center;
-            padding: 2rem;
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
             background: var(--color-primary);
             color: white;
             border-radius: 8px;
-            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .planning-board {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
-        }
-
-        .user-stories {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        }
-
-        .story-form {
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--color-secondary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-
-        .task-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .board-column {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        }
-
-        .column-header {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #eee;
-        }
-
-        .task-list {
-            min-height: 400px;
-        }
-
-        .task-card {
-            background: white;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            cursor: move;
-            transition: transform 0.2s;
-        }
-
-        .task-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .task-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .task-meta {
+        .sprint-timeline {
             display: flex;
-            justify-content: space-between;
+            gap: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sprint-phase {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .phase-date {
             font-size: 0.9rem;
             color: #666;
         }
 
-        .priority {
-            display: inline-block;
-            padding: 0.2rem 0.5rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
+        .lists-container {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+        }
+
+        .sprint-list {
+            background: #EBECF0;
+            border-radius: 8px;
+            min-width: 320px;
+            padding: 1rem;
+        }
+
+        .sprint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        .sprint-title {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .sprint-dates {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: move;
+        }
+
+        .card-title {
+            margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
-        .priority-high { background: #ffebe6; color: #d93c20; }
-        .priority-medium { background: #fff4e6; color: #e67e22; }
-        .priority-low { background: #e6f9f0; color: #27ae60; }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #666;
+        }
 
-        @media (max-width: 768px) {
-            .planning-board {
-                grid-template-columns: 1fr;
-            }
-            
-            .task-board {
-                grid-template-columns: 1fr;
-            }
+        .card-tag {
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag-high { background: #FFEBE6; color: #D93C20; }
+        .tag-medium { background: #FFF4E6; color: #E67E22; }
+        .tag-low { background: #E6F9F0; color: #27AE60; }
+
+        .card-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #DFE1E6;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--color-success);
+            width: 30%;
+        }
+
+        .member-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1><i class="fas fa-tasks"></i> Sprint Planning</h1>
-            <p>Residencial Los Robles - Equipo de Desarrollo Web</p>
+        <header class="board-header">
+            <div>
+                <h1><i class="fas fa-home"></i> Residencial Los Robles</h1>
+                <p>Planificación de Sprints - Marzo/Abril 2024</p>
+            </div>
+            <div class="team-members">
+                <div class="member-avatar">JD</div>
+            </div>
         </header>
 
-        <div class="planning-board">
-            <!-- Sección de User Stories -->
-            <section class="user-stories">
-                <h2><i class="fas fa-plus-circle"></i> Nueva User Story</h2>
-                <form class="story-form" id="storyForm">
-                    <div class="form-group">
-                        <label for="storyTitle">Título:</label>
-                        <input type="text" class="form-control" id="storyTitle" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="storyDesc">Descripción:</label>
-                        <textarea class="form-control" id="storyDesc" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="storyPoints">Puntos de Historia:</label>
-                        <select class="form-control" id="storyPoints" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="5">5</option>
-                            <option value="8">8</option>
-                            <option value="13">13</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="storyAssignee">Asignado a:</label>
-                        <select class="form-control" id="storyAssignee" required>
-                            <option value="dev1">Desarrollador 1</option>
-                            <option value="dev2">Desarrollador 2</option>
-                            <option value="qa">QA Tester</option>
-                            <option value="pm">Project Manager</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="storyPriority">Prioridad:</label>
-                        <select class="form-control" id="storyPriority" required>
-                            <option value="high">Alta</option>
-                            <option value="medium">Media</option>
-                            <option value="low">Baja</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Agregar Historia
-                    </button>
-                </form>
-            </section>
+        <!-- Línea de tiempo de Sprints -->
+        <div class="sprint-timeline">
+            <div class="sprint-phase">
+                <i class="fas fa-rocket"></i>
+                <div>
+                    <div>Sprint 1</div>
+                    <div class="phase-date">1-14 Mar 2024</div>
+                </div>
+            </div>
+            <div class="sprint-phase">
+                <i class="fas fa-credit-card"></i>
+                <div>
+                    <div>Sprint 2</div>
+                    <div class="phase-date">15-28 Mar 2024</div>
+                </div>
+            </div>
+            <div class="sprint-phase">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <div>Sprint 3</div>
+                    <div class="phase-date">1-14 Abr 2024</div>
+                </div>
+            </div>
+        </div>
 
-            <!-- Tablero de Tareas -->
-            <section class="task-board">
-                <div class="board-column">
-                    <div class="column-header">
-                        <h3><i class="fas fa-clipboard-list"></i> Por Hacer</h3>
+        <!-- Tablero de Sprints -->
+        <div class="lists-container">
+            <!-- Sprint 1 -->
+            <div class="sprint-list">
+                <div class="sprint-header">
+                    <div>
+                        <div class="sprint-title">🏗️ Sprint 1: Diseño y Base</div>
+                        <div class="sprint-dates">1-14 Mar 2024</div>
                     </div>
-                    <div class="task-list" id="todoColumn">
-                        <!-- Tareas se agregarán aquí dinámicamente -->
-                    </div>
+                    <div class="badge">4 tareas</div>
                 </div>
                 
-                <div class="board-column">
-                    <div class="column-header">
-                        <h3><i class="fas fa-spinner"></i> En Progreso</h3>
+                <div class="card">
+                    <div class="card-title">Diseño de interfaz responsiva</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>5d
+                        </div>
                     </div>
-                    <div class="task-list" id="progressColumn">
-                        <!-- Tareas se agregarán aquí dinámicamente -->
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
                     </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Registro de usuarios</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>3d
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Panel administrativo</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>4d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Login con redes sociales</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-medium">Media</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>2d
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 2 -->
+            <div class="sprint-list">
+                <div class="sprint-header">
+                    <div>
+                        <div class="sprint-title">💸 Sprint 2: Reservas y Pagos</div>
+                        <div class="sprint-dates">15-28 Mar 2024</div>
+                    </div>
+                    <div class="badge">4 tareas</div>
                 </div>
                 
-                <div class="board-column">
-                    <div class="column-header">
-                        <h3><i class="fas fa-check-circle"></i> Completado</h3>
-                    </div>
-                    <div class="task-list" id="doneColumn">
-                        <!-- Tareas se agregarán aquí dinámicamente -->
+                <div class="card">
+                    <div class="card-title">Sistema de reservas</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>6d
+                        </div>
                     </div>
                 </div>
-            </section>
+
+                <div class="card">
+                    <div class="card-title">Pasarela de pago</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>7d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Sistema de membresías</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>4d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Galería de imágenes</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-medium">Media</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>3d
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 3 -->
+            <div class="sprint-list">
+                <div class="sprint-header">
+                    <div>
+                        <div class="sprint-title">🔒 Sprint 3: Optimización</div>
+                        <div class="sprint-dates">1-14 Abr 2024</div>
+                    </div>
+                    <div class="badge">4 tareas</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">Optimización de rendimiento</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>5d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Autenticación en dos pasos</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>4d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Pruebas finales</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-high">Alta</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>3d
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Métricas y analíticas</div>
+                    <div class="card-meta">
+                        <span class="card-tag tag-medium">Media</span>
+                        <div class="card-duration">
+                            <i class="fas fa-clock"></i>2d
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        // Hacer las tarjetas arrastrables
+        document.querySelectorAll('.sprint-list').forEach(list => {
+            new Sortable(list, {
+                group: 'shared',
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                handle: '.card'
+            });
+        });
+    </script>
 </body>
 </html>
